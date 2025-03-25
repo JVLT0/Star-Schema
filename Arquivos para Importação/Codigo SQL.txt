@@ -1,0 +1,50 @@
+CREATE DATABASE Star_Schema;
+USE Star_Schema;
+
+-- Tabela Fato
+CREATE TABLE F_Cursos_Professores (
+    ID_Fato INT PRIMARY KEY AUTO_INCREMENT,
+    Quantidade_Cursos INT NOT NULL,
+    Carga_Horaria DOUBLE NOT NULL,
+    ID_Professor INT NOT NULL,
+    ID_Curso INT NOT NULL,
+    ID_Departamento INT NOT NULL,
+    ID_Data_Oferta INT NOT NULL,
+    FOREIGN KEY (ID_Professor) REFERENCES D_Professor(ID_Professor),
+    FOREIGN KEY (ID_Curso) REFERENCES D_Curso(ID_Curso),
+    FOREIGN KEY (ID_Departamento) REFERENCES D_Departamento(ID_Departamento),
+    FOREIGN KEY (ID_Data_Oferta) REFERENCES D_Data(ID_Data)
+);
+
+-- Dimensão Professor
+CREATE TABLE D_Professor (
+    ID_Professor INT PRIMARY KEY AUTO_INCREMENT,
+    P_Nome VARCHAR(50) NOT NULL
+);
+
+-- Dimensão Curso
+CREATE TABLE D_Curso (
+    ID_Curso INT PRIMARY KEY AUTO_INCREMENT,
+    C_Nome VARCHAR(50) NOT NULL,
+    C_Area_Estudo VARCHAR(50) NOT NULL,
+    C_Nivel VARCHAR(50) NOT NULL
+);
+
+-- Dimensão Departamento
+CREATE TABLE D_Departamento (
+    ID_Departamento INT PRIMARY KEY AUTO_INCREMENT,
+    D_Nome VARCHAR(50) NOT NULL,
+    D_Coordenador VARCHAR(50) NOT NULL,
+    D_Localizacao VARCHAR(100) NOT NULL
+);
+
+-- Dimensão Data
+CREATE TABLE D_Data (
+    ID_Data INT PRIMARY KEY, -- Formato YYYYMMDD
+    Data_Oferta DATE NOT NULL,
+    Ano INT NOT NULL,
+    Mes INT NOT NULL,
+    Nome_Mes VARCHAR(10) NOT NULL,
+    Trimestre INT NOT NULL,
+    Dia_Semana VARCHAR(10) NOT NULL
+);
